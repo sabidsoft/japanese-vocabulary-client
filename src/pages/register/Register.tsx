@@ -59,8 +59,8 @@ export default function Register() {
     return (
         <div className="mx-5 mt-20 mb-5">
             <div className="max-w-lg mx-auto p-6 bg-gray-100 rounded-lg shadow">
-                <h2 className="text-2xl font-bold text-center text-[#FE0016] mb-6">
-                    User Registration
+                <h2 className="text-2xl font-bold text-center text-[#000] mb-6">
+                    Registration
                 </h2>
 
                 <form onSubmit={handleSubmit} className="mb-4">
