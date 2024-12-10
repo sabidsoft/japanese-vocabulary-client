@@ -2,17 +2,8 @@ export interface User {
     _id: string;
     name: string;
     email: string;
+    profilePicture: string;
     role: string;
-    facebookId?: string;
-    profilePicture?: string;
-    link?: string;
-    gender: string;
-    birthday: string;
-    hometown: string;
-    location: string;
-    accessToken?: string;
-    expiresIn?: number;
-    dataAccessExpirationTime?: number;
     createdAt: Date;
     updatedAt: Date;
 }

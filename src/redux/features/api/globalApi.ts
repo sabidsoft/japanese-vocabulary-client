@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../../../app/store';
-import { BASE_URL } from '../../../../utils/baseUrl';
+import { RootState } from '../../app/store';
+import { BASE_URL } from '../../../utils/baseUrl';
 
-export const apiSlice = createApi({
-    reducerPath: 'avatarManagementApi',
-    tagTypes: ['Users', 'User', 'Posts', 'Likes'],
+export const globalApi = createApi({
+    reducerPath: 'japaneseVocabularySchool',
+    tagTypes: ['User', 'Users'],
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}`,
         prepareHeaders: async (headers, { getState }) => {
