@@ -84,7 +84,7 @@ export default function Login() {
 
                     <button
                         type="submit"
-                        className="w-full bg-[#333] text-white py-2 rounded hover:bg-[#000] duration-300"
+                        className="w-full bg-gray-600 text-white py-2 rounded hover:bg-[#000] duration-500"
                         disabled={isLoading}
                     >
                         {

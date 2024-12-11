@@ -6,9 +6,9 @@ export default function Button({ buttonName, onClick }: ButtonProps) {
             onClick={onClick}
             className="
                 text-white
-                bg-[#333]
+                bg-gray-600
                 hover:bg-[#000]
-                duration-300
+                duration-500
                 font-medium
                 py-2
                 px-5
