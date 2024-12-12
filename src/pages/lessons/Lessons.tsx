@@ -1,4 +1,5 @@
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import Footer from "../../components/footer/Footer";
 import Loader from "../../components/loader/Loader";
 import { useGetLessonsQuery } from "../../redux/features/api/endPoints/lessonEndpoint/lessonEndpoint";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +40,9 @@ export default function Lessons() {
             <h1 className="text-center text-4xl font-bold mt-8 mb-8">Lessons</h1>
             <div className="w-[100%] md:w-[50%] lg:w-[30%] mx-auto mb-6 px-5">
                 {content}
+            </div>
+            <div className="mt-16">
+                <Footer />
             </div>
         </div>
     );

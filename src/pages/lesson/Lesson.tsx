@@ -5,6 +5,7 @@ import { useGetVocabulariesByLessonNumberQuery } from "../../redux/features/api/
 import { Vocabulary } from "./types";
 import Loader from "../../components/loader/Loader";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import Footer from "../../components/footer/Footer";
 
 export default function LessonDetailPage() {
     const location = useLocation();
@@ -123,9 +124,12 @@ export default function LessonDetailPage() {
             </>;
 
     return (
-        <div className="mt-8 px-5">
+        <div className="mt-8">
             <h1 className="text-center text-4xl font-bold mb-8">{lessonName}</h1>
             {content}
+            <div className="mt-60">
+                <Footer />
+            </div>
         </div>
     );
 }
