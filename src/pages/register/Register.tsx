@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import { useRegisterMutation } from "../../redux/features/api/endPoints/userEndpoint/userEndpoint";
@@ -7,9 +7,6 @@ import { MoonLoader } from "react-spinners";
 export default function Register() {
     useTitle("Register");
     const navigate = useNavigate();
-    const location = useLocation();
-    const [register, { data, error, isLoading }] = useRegisterMutation();
-
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [profilePicture, setProfilePicture] = useState<File | null>(null);
@@ -17,7 +14,10 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
-    // handle profile picture
+    const [register, { data, error, isLoading }] = useRegisterMutation();
+    const user = data?.data?.user;
+
+    // Handle profile picture upload
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] || null;
         setProfilePicture(file);
@@ -36,14 +36,25 @@ export default function Register() {
         formData.append("name", name);
         formData.append("email", email);
         formData.append("password", password);
-        formData.append("profilePicture", profilePicture as File);
+        if (profilePicture) {
+            formData.append("profilePicture", profilePicture);
+        }
 
         register(formData);
     };
 
     useEffect(() => {
         if (data) {
-            navigate(location.state?.from?.pathname || "/", { replace: true });
+            const userRole = user?.role;
+
+            // Redirect based on user role
+            if (userRole === "Admin") {
+                navigate("/dashboard", { replace: true });
+            } else if (userRole === "User") {
+                navigate("/lessons", { replace: true });
+            } else {
+                navigate("/login", { replace: true }); // Fallback
+            }
         }
 
         if (error) {
@@ -51,10 +62,10 @@ export default function Register() {
                 const errMsgJSONString =
                     "error" in error ? error.error : JSON.stringify(error.data);
                 const errMsgJSObj = JSON.parse(errMsgJSONString);
-                setErrorMessage(errMsgJSObj.message);
+                setErrorMessage(errMsgJSObj.message || "Registration failed");
             }
         }
-    }, [data, error, navigate, location.state?.from?.pathname]);
+    }, [data, error, navigate, user?.role]);
 
     return (
         <div className="mx-5 mt-20 mb-5">
@@ -120,7 +131,6 @@ export default function Register() {
                         />
                     </div>
 
-
                     {/* Password */}
                     <div className="mb-4">
                         <label
@@ -161,14 +171,16 @@ export default function Register() {
 
                     <button
                         type="submit"
-                        className="w-full bg-gray-600 text-white py-2 rounded hover:bg-[#000] duration-500"
+                        className="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-600 duration-500"
                         disabled={isLoading}
                     >
-                        {
-                            isLoading ?
-                                <div className='flex justify-center px-4'><MoonLoader color="#fff" size={18} /> </div> :
-                                'Register'
-                        }
+                        {isLoading ? (
+                            <div className="flex justify-center px-4">
+                                <MoonLoader color="#fff" size={18} />
+                            </div>
+                        ) : (
+                            "Register"
+                        )}
                     </button>
                 </form>
 
@@ -178,10 +190,10 @@ export default function Register() {
                 )}
 
                 {/* Login link */}
-                <div className='mt-4 text-center'>
-                    <p className='text-sm'>
+                <div className="mt-4 text-center">
+                    <p className="text-sm">
                         Already have an account?
-                        <Link to="/login" className='text-blue-600 hover:underline ml-1'>
+                        <Link to="/login" className="text-blue-600 hover:underline ml-1">
                             Login here
                         </Link>
                     </p>

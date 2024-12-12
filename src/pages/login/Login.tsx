@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useTitle from "../../hooks/useTitle";
 import { useLoginMutation } from "../../redux/features/api/endPoints/userEndpoint/userEndpoint";
@@ -7,23 +7,31 @@ import { MoonLoader } from "react-spinners";
 export default function Login() {
     useTitle("Login");
     const navigate = useNavigate();
-    const location = useLocation();
-    const [login, { data, error, isLoading }] = useLoginMutation();
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
+    const [login, { data, error, isLoading }] = useLoginMutation();
+    const user = data?.data?.user;
+
     // Submit form data
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         login({ email, password });
     };
 
     useEffect(() => {
         if (data) {
-            navigate(location.state?.from?.pathname || "/", { replace: true });
+            const userRole = user?.role;
+
+            // Redirect based on user role
+            if (userRole === "Admin") {
+                navigate("/dashboard", { replace: true });
+            } else if (userRole === "User") {
+                navigate("/lessons", { replace: true });
+            } else {
+                navigate("/login", { replace: true }); // Fallback
+            }
         }
 
         if (error) {
@@ -31,10 +39,10 @@ export default function Login() {
                 const errMsgJSONString =
                     "error" in error ? error.error : JSON.stringify(error.data);
                 const errMsgJSObj = JSON.parse(errMsgJSONString);
-                setErrorMessage(errMsgJSObj.message);
+                setErrorMessage(errMsgJSObj.message || "Login failed");
             }
         }
-    }, [data, error, navigate, location.state?.from?.pathname]);
+    }, [data, error, navigate, user?.role]);
 
     return (
         <div className="mx-5 mt-20 mb-5">
@@ -84,7 +92,7 @@ export default function Login() {
 
                     <button
                         type="submit"
-                        className="w-full bg-gray-600 text-white py-2 rounded hover:bg-[#000] duration-500"
+                        className="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-600 duration-500"
                         disabled={isLoading}
                     >
                         {

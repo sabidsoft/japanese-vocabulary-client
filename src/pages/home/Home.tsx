@@ -1,7 +1,16 @@
+import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../../redux/app/hooks";
+
 export default function Home() {
-    return (
-        <div className="">
-            <h1 className="text-3xl font-bold text-center mt-20">Home Page</h1>
-        </div>
-    );
+    const auth = useAppSelector(state => state.auth);
+
+    if (auth?.user?.role === 'User') {
+        return <Navigate to="/lessons" replace />;
+    }
+
+    if (auth?.user?.role === 'Admin') {
+        return <Navigate to="/dashboard" replace />;
+    }
+
+    return <Navigate to="/login" replace />
 }

@@ -6,7 +6,7 @@ export default function UserRoute({ children }: UserRouteProps) {
     const auth = useAppSelector(state => state.auth);
     const location = useLocation();
 
-    return auth.token && auth.user && auth.user.role === 'User' ? children :
+    return auth.token && auth.user ? children :
         <Navigate
             to="/login"
             state={{ from: location }}
