@@ -16,7 +16,8 @@ import Home from "./pages/home/Home";
 import AddVocabularies from "./pages/addVocabularies/AddVocabularies";
 import LessonManagement from "./pages/lessonManagement/LessonManagement";
 import VocabularyManagement from "./pages/vocabularyManagement/VocabularyManagement";
-import LessonsForAdmin from "./pages/lessonsForAdmin/LessonsForAdmin";
+import LessonsForAdmin from "./pages/lessonsForAdmin/Lessons";
+import Lesson from "./pages/lesson/Lesson";
 
 export default function App() {
   const initialAuthChecked = useInitialAuthCheck();
@@ -34,6 +35,7 @@ export default function App() {
 
         {/* User Protected Routes */}
         <Route path="/lessons" element={<UserRoute><Lessons /></UserRoute>} />
+        <Route path="/lessons/:lessonNumber" element={<UserRoute><Lesson /></UserRoute>} />
         <Route path="/tutorials" element={<UserRoute><Tutorials /></UserRoute>} />
 
         {/* Admin Protected Routes */}

@@ -3,7 +3,7 @@ import { globalApi } from "../../globalApi";
 export const lessonEndpoint = globalApi.injectEndpoints({
   endpoints: (builder) => ({
     getLessons: builder.query<any, void>({
-      query: () => '/api/lessons/admin-lessons',
+      query: () => '/api/lessons',
       providesTags: ['Lesson'],
     }),
 
@@ -18,7 +18,7 @@ export const lessonEndpoint = globalApi.injectEndpoints({
 
     updateLesson: builder.mutation<any, any>({
       query: (updatedLesson) => ({
-        url: `/lessons/${updatedLesson.id}`,
+        url: `api/lessons/${updatedLesson.id}`,
         method: 'PUT',
         body: updatedLesson,
       }),
@@ -27,7 +27,7 @@ export const lessonEndpoint = globalApi.injectEndpoints({
 
     deleteLesson: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/lessons/${id}`,
+        url: `api/lessons/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Lesson'],

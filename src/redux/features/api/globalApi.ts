@@ -4,7 +4,7 @@ import { BASE_URL } from '../../../utils/baseUrl';
 
 export const globalApi = createApi({
     reducerPath: 'japaneseVocabularySchool',
-    tagTypes: ['User', 'Users', 'Lesson'],
+    tagTypes: ['User', 'Users', 'Lesson', 'Vocabulary'],
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}`,
         prepareHeaders: async (headers, { getState }) => {
