@@ -16,7 +16,6 @@ import Home from "./pages/home/Home";
 import AddVocabularies from "./pages/addVocabularies/AddVocabularies";
 import LessonManagement from "./pages/lessonManagement/LessonManagement";
 import VocabularyManagement from "./pages/vocabularyManagement/VocabularyManagement";
-import LessonsForAdmin from "./pages/lessonsForAdmin/Lessons";
 import Lesson from "./pages/lesson/Lesson";
 
 export default function App() {
@@ -40,7 +39,6 @@ export default function App() {
 
         {/* Admin Protected Routes */}
         <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
-        <Route path="/dashboard/lessons" element={<AdminRoute><LessonsForAdmin /></AdminRoute>} />
         <Route path="/dashboard/add-lessons" element={<AdminRoute><AddLessons /></AdminRoute>} />
         <Route path="/dashboard/add-vocabularies" element={<AdminRoute><AddVocabularies /></AdminRoute>} />
         <Route path="/dashboard/manage-users" element={<AdminRoute><ManageUsers /></AdminRoute>} />

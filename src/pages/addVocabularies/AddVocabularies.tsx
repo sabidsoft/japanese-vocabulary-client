@@ -53,7 +53,7 @@ export default function AddVocabularies() {
 
       {/* Main Content */}
       <main className="w-[76%] p-4 mt-2 overflow-y-auto ml-[24%]">
-        <h1 className="text-center text-4xl font-bold mb-10">Add Vocabulary</h1>
+        <h1 className="text-center text-4xl font-bold mb-10">Add Vocabularies</h1>
         <div className="max-w-lg mx-auto p-6 bg-gray-100 rounded-lg shadow">
           <form onSubmit={handleSubmit}>
             <h3 className="text-center text-2xl font-semibold mb-5">Add a Vocabulary</h3>

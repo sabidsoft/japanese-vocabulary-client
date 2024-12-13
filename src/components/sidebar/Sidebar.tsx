@@ -6,12 +6,11 @@ export default function Sidebar({ activeMenu }: SidebarProps) {
 
   // Sidebar menu items
   const sidebarMenu = [
-    'Lessons',
     'Add Lessons',
     'Add Vocabularies',
-    'Manage Users',
     'Lesson Management',
     'Vocabulary Management',
+    'Manage Users',
   ];
 
   // Handle navigation
