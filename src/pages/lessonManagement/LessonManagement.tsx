@@ -173,7 +173,7 @@ export default function LessonManagement() {
 
     return (
         <>
-            <Sidebar activeMenu="Add Lessons" />
+            <Sidebar activeMenu="Lesson Management" />
             <main className="w-[76%] p-4 mt-2 overflow-y-auto ml-[24%]">
                 <div className="flex flex-col items-center mb-10">
                     <h1 className="text-center text-4xl font-bold mb-10">Lesson Management</h1>
