@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../../components/loader/Loader";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
