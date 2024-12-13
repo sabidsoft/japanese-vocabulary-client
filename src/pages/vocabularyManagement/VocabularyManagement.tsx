@@ -57,7 +57,7 @@ export default function VocabularyManagement() {
 
     const vocabularies = data?.data?.vocabularies || [];
     const filteredVocabularies = filterLesson
-        ? vocabularies.filter((vocab: any) => vocab.lessonNumber === filterLesson)
+        ? vocabularies.filter((vocab: Vocabulary) => vocab.lessonNumber === filterLesson)
         : vocabularies;
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +67,7 @@ export default function VocabularyManagement() {
 
     const handleCreateOrUpdate = async () => {
         const apiData = {
-            _id: formData.id || undefined,
+            _id: formData.id,
             word: formData.word,
             pronunciation: formData.pronunciation,
             meaning: formData.meaning,
@@ -80,14 +80,11 @@ export default function VocabularyManagement() {
             if (isEditing) {
                 await updateVocabulary(apiData).unwrap();
                 toast.success("Vocabulary updated successfully!");
-                setErrorMessage("");
             } else {
                 await createVocabulary(apiData).unwrap();
                 toast.success("Vocabulary created successfully!");
-                setErrorMessage("");
             }
-            setShowModal(false);
-            setFormData({ id: "", word: "", pronunciation: "", meaning: "", whenToSay: "", lessonNumber: 0, adminEmail: "" });
+            handleCloseModal(); // Reset modal and form state after success
         } catch (error) {
             toast.error("An error occurred while saving the vocabulary.");
         }
@@ -119,10 +116,18 @@ export default function VocabularyManagement() {
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
-        setFormData({ id: "", word: "", pronunciation: "", meaning: "", whenToSay: "", lessonNumber: 0, adminEmail: "" });
-        setIsEditing(false);
-        setErrorMessage("");
+        setFormData({
+            id: "",
+            word: "",
+            pronunciation: "",
+            meaning: "",
+            whenToSay: "",
+            lessonNumber: 0,
+            adminEmail: ""
+        });
+        setIsEditing(false); // Reset editing state
+        setShowModal(false); // Close modal
+        setErrorMessage(""); // Clear error message
     };
 
     useEffect(() => {
@@ -154,36 +159,40 @@ export default function VocabularyManagement() {
                 <table className="w-full border-collapse border border-gray-200">
                     <thead>
                         <tr className="bg-gray-100">
+                            <th className="border border-gray-300 p-2">Lesson No</th>
                             <th className="border border-gray-300 p-2">Word</th>
                             <th className="border border-gray-300 p-2">Pronunciation</th>
                             <th className="border border-gray-300 p-2">Meaning</th>
                             <th className="border border-gray-300 p-2">When to Say</th>
-                            <th className="border border-gray-300 p-2">Lesson No</th>
+                            <th className="border border-gray-300 p-2">Creator</th>
                             <th className="border border-gray-300 p-2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredVocabularies.map((vocab: any) => (
+                        {filteredVocabularies.map((vocab: Vocabulary) => (
                             <tr key={vocab._id} className="hover:bg-gray-50 text-center">
+                                <td className="border border-gray-300 p-2">{vocab.lessonNumber}</td>
                                 <td className="border border-gray-300 p-2">{vocab.word}</td>
                                 <td className="border border-gray-300 p-2">{vocab.pronunciation}</td>
                                 <td className="border border-gray-300 p-2">{vocab.meaning}</td>
                                 <td className="border border-gray-300 p-2">{vocab.whenToSay}</td>
-                                <td className="border border-gray-300 p-2">{vocab.lessonNumber}</td>
-                                <td className="border border-gray-300 p-2 flex justify-center gap-2">
-                                    <button
-                                        onClick={() => handleEdit(vocab)}
-                                        className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(vocab._id)}
-                                        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                                        disabled={deleteVocabIsLoading}
-                                    >
-                                        Delete
-                                    </button>
+                                <td className="border border-gray-300 p-2">{vocab.adminEmail}</td>
+                                <td className="border border-gray-300 p-2">
+                                    <div className="flex justify-center gap-2 px-4">
+                                        <button
+                                            onClick={() => handleEdit(vocab)}
+                                            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(vocab._id)}
+                                            className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                                            disabled={deleteVocabIsLoading}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -212,7 +221,10 @@ export default function VocabularyManagement() {
                             />
                         </div>
                         <button
-                            onClick={() => setShowModal(true)}
+                            onClick={() => {
+                                handleCloseModal(); // Reset modal and form data
+                                setShowModal(true); // Open modal
+                            }}
                             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                         >
                             Add New Vocabulary
@@ -284,23 +296,23 @@ export default function VocabularyManagement() {
                                 <div className="flex justify-end gap-4">
                                     <button
                                         onClick={handleCloseModal}
-                                        className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                                        disabled={updateVocabIsLoading || createVocabIsLoading}
+                                        className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         onClick={handleCreateOrUpdate}
                                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                        disabled={createVocabIsLoading || updateVocabIsLoading}
                                     >
-                                        {isEditing ?
-                                            (updateVocabIsLoading ? <div className='flex justify-center px-4'><MoonLoader color="#fff" size={18} /> </div> : "Save Changes") :
-                                            (createVocabIsLoading ? <div className='flex justify-center px-4'><MoonLoader color="#fff" size={18} /> </div> : "Create Vocabulary")}
+                                        {createVocabIsLoading || updateVocabIsLoading ? (
+                                            <div className='flex justify-center px-4'><MoonLoader color="#fff" size={18} /> </div>
+                                        ) : (
+                                            isEditing ? "Save Changes" : "Create Vocabulary"
+                                        )}
                                     </button>
                                 </div>
-                                {errorMessage && (
-                                    <p className="text-red-500 text-center mt-4">{errorMessage}</p>
-                                )}
+                                {errorMessage && <p className="text-red-500 text-center mt-4">{errorMessage}</p>}
                             </div>
                         </div>
                     )}

@@ -6,6 +6,7 @@ export default function Sidebar({ activeMenu }: SidebarProps) {
 
   // Sidebar menu items
   const sidebarMenu = [
+    'Lessons',
     'Add Lessons',
     'Add Vocabularies',
     'Lesson Management',

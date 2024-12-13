@@ -6,7 +6,10 @@ import Navbar from "./components/Navbar/Navbar";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
 import UserRoute from "./components/privateRoute/userRoute/UserRoute";
+import Lesson from "./pages/lesson/Lesson";
 import Lessons from "./pages/lessons/Lessons";
+import LessonsForAdmin from "./pages/lessonsForAdmin/LessonsForAdmin";
+import LessonForAdmin from "./pages/lessonForAdmin/LessonForAdmin";
 import Tutorials from "./pages/tutorials/Tutorials";
 import AdminRoute from "./components/privateRoute/adminRoute/AdminRoute";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -16,7 +19,6 @@ import Home from "./pages/home/Home";
 import AddVocabularies from "./pages/addVocabularies/AddVocabularies";
 import LessonManagement from "./pages/lessonManagement/LessonManagement";
 import VocabularyManagement from "./pages/vocabularyManagement/VocabularyManagement";
-import Lesson from "./pages/lesson/Lesson";
 
 export default function App() {
   const initialAuthChecked = useInitialAuthCheck();
@@ -38,6 +40,9 @@ export default function App() {
         <Route path="/tutorials" element={<UserRoute><Tutorials /></UserRoute>} />
 
         {/* Admin Protected Routes */}
+        <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
+        <Route path="/dashboard/lessons" element={<AdminRoute><LessonsForAdmin /></AdminRoute>} />
+        <Route path="/dashboard/lessons/:lessonNumber" element={<AdminRoute><LessonForAdmin /></AdminRoute>} />
         <Route path="/dashboard" element={<AdminRoute><Dashboard /></AdminRoute>} />
         <Route path="/dashboard/add-lessons" element={<AdminRoute><AddLessons /></AdminRoute>} />
         <Route path="/dashboard/add-vocabularies" element={<AdminRoute><AddVocabularies /></AdminRoute>} />

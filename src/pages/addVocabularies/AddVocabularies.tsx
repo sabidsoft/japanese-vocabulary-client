@@ -35,7 +35,7 @@ export default function AddVocabularies() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Vocabulary added successfully!");
-      navigate("/dashboard/vocabulary-management", { replace: true });
+      navigate("/dashboard/lessons", { replace: true });
     }
 
     if (error) {

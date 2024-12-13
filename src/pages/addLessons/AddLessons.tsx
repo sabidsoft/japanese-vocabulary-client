@@ -30,7 +30,7 @@ export default function AddLessons() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Lesson added successfully!");
-      navigate("/dashboard/lesson-management", { replace: true });
+      navigate("/dashboard/lessons", { replace: true });
     }
 
     if (error) {

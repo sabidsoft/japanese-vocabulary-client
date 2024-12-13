@@ -5,9 +5,9 @@ import { useGetVocabulariesByLessonNumberQuery } from "../../redux/features/api/
 import { Vocabulary } from "./types";
 import Loader from "../../components/loader/Loader";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
-import Footer from "../../components/footer/Footer";
+import Sidebar from "../../components/sidebar/Sidebar";
 
-export default function Lesson() {
+export default function LessonForAdmin() {
     const location = useLocation();
     const navigate = useNavigate();
     const { lessonNumber } = useParams();
@@ -38,7 +38,7 @@ export default function Lesson() {
         setTimeout(() => {
             setShowConfetti(false);
             setIsCompleting(false); // Re-enable button
-            navigate('/lessons');
+            navigate('/dashboard/lessons');
         }, 3000);
     };
 
@@ -137,7 +137,7 @@ export default function Lesson() {
                                 onClick={handleCompleteLesson}
                                 className={`bg-green-500 hover:bg-green-600 duration-500 text-white py-3 px-8 rounded-lg ${isCompleting ? "opacity-50 cursor-not-allowed" : ""
                                     }`}
-                                disabled={isCompleting} // Disable button during completion
+                                disabled={isCompleting}
                             >
                                 Complete Lesson
                             </button>
@@ -148,12 +148,14 @@ export default function Lesson() {
             </>;
 
     return (
-        <div className="mt-8">
-            <h1 className="text-center text-4xl font-bold mb-8">{lessonName}</h1>
-            {content}
-            <div className="mt-60">
-                <Footer />
-            </div>
-        </div>
+        <>
+            <Sidebar activeMenu="" />
+            <main className="w-[76%] p-4 mt-2 overflow-y-auto ml-[24%]">
+                <div className="mt-8">
+                    <h1 className="text-center text-4xl font-bold mb-8">{lessonName}</h1>
+                    {content}
+                </div>
+            </main>
+        </>
     );
 }
