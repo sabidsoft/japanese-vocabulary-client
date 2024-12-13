@@ -77,10 +77,26 @@ export const userEndpoint = globalApi.injectEndpoints({
                 }
             }
         }),
+
+        getUsers: builder.query<any, void>({
+            query: () => '/api/users',
+            providesTags: ['Users'],
+          }),
+
+        updateUserRole: builder.mutation<any, { userId: string, role: string }>({
+            query: ({ userId, role }) => ({
+                url: `/api/users/update-role/${userId}`,
+                method: 'PUT',
+                body: { role }
+            }),
+            invalidatesTags: ['Users'],
+        })
     })
 })
 
 export const {
     useLoginMutation,
-    useRegisterMutation
+    useRegisterMutation,
+    useGetUsersQuery,
+    useUpdateUserRoleMutation
 } = userEndpoint;

@@ -24,7 +24,7 @@ export const vocabularyEndpoint = globalApi.injectEndpoints({
 
     updateVocabulary: builder.mutation<any, any>({
       query: (updatedVocabulary) => ({
-        url: `/api/vocabularies/${updatedVocabulary.id}`,
+        url: `/api/vocabularies`,
         method: 'PUT',
         body: updatedVocabulary,
       }),
