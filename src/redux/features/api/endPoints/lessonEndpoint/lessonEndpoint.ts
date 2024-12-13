@@ -7,6 +7,11 @@ export const lessonEndpoint = globalApi.injectEndpoints({
       providesTags: ['Lesson'],
     }),
 
+    getLessonsForLessonManagement: builder.query<any, void>({
+      query: () => '/api/lessons/lesson-management',
+      providesTags: ['Lesson'],
+    }),
+
     createLesson: builder.mutation<any, any>({
       query: (newLesson) => ({
         url: '/api/lessons',
@@ -18,7 +23,7 @@ export const lessonEndpoint = globalApi.injectEndpoints({
 
     updateLesson: builder.mutation<any, any>({
       query: (updatedLesson) => ({
-        url: `api/lessons/${updatedLesson.id}`,
+        url: `api/lessons`,
         method: 'PUT',
         body: updatedLesson,
       }),
@@ -37,6 +42,7 @@ export const lessonEndpoint = globalApi.injectEndpoints({
 
 export const {
   useGetLessonsQuery,
+  useGetLessonsForLessonManagementQuery,
   useCreateLessonMutation,
   useUpdateLessonMutation,
   useDeleteLessonMutation,

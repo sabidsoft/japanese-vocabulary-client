@@ -47,7 +47,7 @@ export default function AddVocabularies() {
   }, [isSuccess, error, navigate]);
 
   return (
-    <div className="flex">
+    <>
       {/* Sidebar */}
       <Sidebar activeMenu="Add Vocabularies" />
 
@@ -163,6 +163,6 @@ export default function AddVocabularies() {
           </form>
         </div>
       </main>
-    </div>
+    </>
   );
 }

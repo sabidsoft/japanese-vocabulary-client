@@ -42,7 +42,7 @@ export default function AddLessons() {
   }, [isSuccess, error, navigate]);
 
   return (
-    <div className="flex">
+    <>
       {/* Sidebar */}
       <Sidebar activeMenu="Add Lessons" />
 
@@ -110,6 +110,6 @@ export default function AddLessons() {
           </form>
         </div>
       </main>
-    </div>
+    </>
   );
 }
