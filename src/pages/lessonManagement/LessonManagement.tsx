@@ -10,7 +10,6 @@ import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import { MoonLoader } from "react-spinners";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function LessonManagement() {
     const { data, isLoading: lessonsIsLoading, isError } = useGetLessonsForLessonManagementQuery();

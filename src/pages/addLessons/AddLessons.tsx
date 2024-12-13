@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useCreateLessonMutation } from "../../redux/features/api/endPoints/lessonEndpoint/lessonEndpoint";
+import { toast } from "react-toastify";
 
 export default function AddLessons() {
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ export default function AddLessons() {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/dashboard/lessons", { replace: true });
+      toast.success("Lesson added successfully!");
+      navigate("/dashboard/lesson-management", { replace: true });
     }
 
     if (error) {

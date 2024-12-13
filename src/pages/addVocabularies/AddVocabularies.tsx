@@ -4,6 +4,7 @@ import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useCreateVocabularyMutation } from "../../redux/features/api/endPoints/vocabularyEndpoint/vocabularyEndpoint";
 import { useAppSelector } from "../../redux/app/hooks";
+import { toast } from "react-toastify";
 
 export default function AddVocabularies() {
   const navigate = useNavigate();
@@ -33,7 +34,8 @@ export default function AddVocabularies() {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/dashboard/lessons", { replace: true });
+      toast.success("Vocabulary added successfully!");
+      navigate("/dashboard/vocabulary-management", { replace: true });
     }
 
     if (error) {
