@@ -67,30 +67,51 @@ export default function LessonDetailPage() {
             <>
                 <div className="text-center">
                     {vocabularies.length > 0 && (
-                        <div>
-                            <div
-                                className="text-3xl font-bold cursor-pointer mb-2"
-                                onClick={() => handlePronunciationClick(vocabularies[currentVocabularyIndex])}
-                            >
-                                {vocabularies[currentVocabularyIndex].word}
-                            </div>
-                            <div className="mb-5">{vocabularies[currentVocabularyIndex].meaning}</div>
-                            <div className="text-gray-600">
-                                <span>Pronunciation: {vocabularies[currentVocabularyIndex].pronunciation} </span>
+                        <>
+                            <div className="flex justify-center mb-8">
                                 <button
+                                    className="flex flex-col items-center p-5 border-2 rounded-lg hover:bg-gray-100 duration-500"
                                     onClick={() => handlePronunciationClick(vocabularies[currentVocabularyIndex])}
-                                    className="text-blue-600"
                                 >
-                                    (Play)
+                                    <span className="text-2xl font-bold cursor-pointer mb-1">
+                                        {vocabularies[currentVocabularyIndex].word}
+                                    </span>
+                                    <span>
+                                        {vocabularies[currentVocabularyIndex].meaning}
+                                    </span>
                                 </button>
                             </div>
-                            <div className="text-gray-600 mb-8">
-                                When to say: {vocabularies[currentVocabularyIndex].whenToSay}
+                            <div className="mb-8">
+                                <div className="text-gray-600">
+                                    <span className="font-medium text-black">Word: </span>
+                                    {vocabularies[currentVocabularyIndex].word}
+                                </div>
+                                <div className="text-gray-600">
+                                    <span className="font-medium text-black">Meaning: </span>
+                                    {vocabularies[currentVocabularyIndex].meaning}
+                                </div>
+                                <div className="text-gray-600">
+                                    <span>
+                                        <span className="font-medium text-black">Pronunciation: </span>
+                                        {vocabularies[currentVocabularyIndex].pronunciation}
+                                    </span>
+                                    <button
+                                        onClick={() => handlePronunciationClick(vocabularies[currentVocabularyIndex])}
+                                        className="text-blue-600 hover:text-blue-800 duration-500 font-bold ml-2"
+                                    >
+                                        (Play)
+                                    </button>
+                                </div>
+                                <div className="text-gray-600">
+                                    <span className="font-medium text-black">When to say: </span>
+                                    {vocabularies[currentVocabularyIndex].whenToSay}
+                                </div>
                             </div>
-                        </div>
+                        </>
                     )}
-                </div>
-                <div className="flex justify-center mb-10 gap-5">
+                </div >
+
+                <div className="flex justify-center mb-8 gap-5">
                     <button
                         onClick={handlePreviousVocabulary}
                         disabled={currentVocabularyIndex === 0}
@@ -108,18 +129,21 @@ export default function LessonDetailPage() {
                         Next
                     </button>
                 </div>
-                {currentVocabularyIndex === vocabularies.length - 1 && (
-                    <div className="text-center">
-                        <button
-                            onClick={handleCompleteLesson}
-                            className={`bg-green-500 hover:bg-green-600 duration-500 text-white py-3 px-8 rounded-lg ${isCompleting ? "opacity-50 cursor-not-allowed" : ""
-                                }`}
-                            disabled={isCompleting} // Disable button during completion
-                        >
-                            Complete Lesson
-                        </button>
-                    </div>
-                )}
+
+                {
+                    currentVocabularyIndex === vocabularies.length - 1 && (
+                        <div className="text-center">
+                            <button
+                                onClick={handleCompleteLesson}
+                                className={`bg-green-500 hover:bg-green-600 duration-500 text-white py-3 px-8 rounded-lg ${isCompleting ? "opacity-50 cursor-not-allowed" : ""
+                                    }`}
+                                disabled={isCompleting} // Disable button during completion
+                            >
+                                Complete Lesson
+                            </button>
+                        </div>
+                    )
+                }
                 {showConfetti && <Confetti />}
             </>;
 
